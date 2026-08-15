@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Resume Analyzer</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <h1>AI Resume Analyzer</h1>
+        <form id="resume-form">
+            <label for="resume">Upload Resume</label>
+            <input type="file" id="resume" name="resume" accept=".txt,.pdf,.docx" required />
+
+            <label for="job-description">Job Description</label>
+            <textarea id="job-description" name="job_description" rows="8"
+                placeholder="Paste the job description here..." required></textarea>
+
+            <button type="submit">Analyze Resume</button>
+        </form>
+
+        <div id="result" class="result hidden">
+            <h2>Match Result</h2>
+            <div class="score-box">
+                <span id="score">0</span>
+                <span>%</span>
+            </div>
+            <div class="metrics">
+                <div class="metric-row"><span>Overall Match</span><strong id="overall-match">0%</strong></div>
+                <div class="metric-row"><span>Keyword Match</span><strong id="keyword-match">0%</strong></div>
+                <div class="metric-row"><span>Semantic Match</span><strong id="semantic-match">0%</strong></div>
+                <div class="metric-row"><span>Skill Match</span><strong id="skill-match">0%</strong></div>
+            </div>
+            <div class="ats-box">
+                <h3>ATS Suggestions</h3>
+                <ul id="ats-suggestions"></ul>
+            </div>
+            <div class="questions-box">
+                <h3>Interview Questions</h3>
+                <ol id="interview-questions"></ol>
+            </div>
+            <p id="summary"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: linear-gradient(135deg, #f4f7fb, #dfeaf6);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: min(900px, 90vw);
+    background: white;
+    border-radius: 18px;
+    padding: 2rem;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+h1 {
+    margin-top: 0;
+    color: #1d3557;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    font-weight: 600;
+    color: #1d3557;
+}
+
+input[type='file'],
+textarea,
+button {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    font-size: 1rem;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 180px;
+}
+
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+.result {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    background: #eff6ff;
+}
+
+.hidden {
+    display: none;
+}
+
+.score-box {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 1rem;
+}
+
+.metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid #dbeafe;
+    font-weight: 600;
+    color: #1e3a8a;
+}
+
+.metric-row strong {
+    color: #0f172a;
+}
+
+.ats-box,
+.questions-box {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #f8fafc;
+    border: 1px solid #dbeafe;
+}
+
+.ats-box h3,
+.questions-box h3 {
+    margin: 0 0 0.75rem;
+    color: #1d3557;
+}
+
+#ats-suggestions,
+#interview-questions {
+    margin: 0;
+    padding-left: 1.25rem;
+    color: #0f172a;
+    line-height: 1.6;
+}
