@@ -1,8 +1,12 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 import os
+import sys
 import shutil
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from resume_parser import extract_text_from_pdf
 from skill_extractor import extract_skills, generate_ats_suggestions, generate_interview_questions
@@ -22,16 +26,11 @@ app.add_middleware(
 )
 
 
-UPLOAD_FOLDER = "../uploads"
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+UPLOAD_FOLDER = os.path.join(BASE_DIR, "uploads")
+FRONTEND_FOLDER = os.path.join(BASE_DIR, "frontend")
 
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-
-@app.get("/")
-def home():
-    return {
-        "message": "AI Resume Analyzer API is running"
-    }
 
 
 @app.post("/analyze")
@@ -95,3 +94,8 @@ async def train_model_endpoint(num_samples: int = 500):
             "status": "error",
             "message": str(e)
         }
+
+
+# Serve Frontend Web UI at root URL
+if os.path.exists(FRONTEND_FOLDER):
+    app.mount("/", StaticFiles(directory=FRONTEND_FOLDER, html=True), name="frontend")
