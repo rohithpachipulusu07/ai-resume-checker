@@ -1,12 +1,24 @@
 import os
+import sys
 import tempfile
 import unittest
 
-from backend.resume_parser import extract_text_from_file, extract_resume_sections
-from backend.skill_extractor import extract_skills, generate_ats_suggestions
-from backend.matcher import calculate_match_breakdown
-from backend.data_generator import generate_random_resume, generate_random_job_description, generate_training_dataset
-from backend.model_trainer import train_model
+# Ensure parent and current directory are on sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+
+try:
+    from backend.resume_parser import extract_text_from_file, extract_resume_sections
+    from backend.skill_extractor import extract_skills, generate_ats_suggestions
+    from backend.matcher import calculate_match_breakdown
+    from backend.data_generator import generate_random_resume, generate_random_job_description, generate_training_dataset
+    from backend.model_trainer import train_model
+except ImportError:
+    from resume_parser import extract_text_from_file, extract_resume_sections
+    from skill_extractor import extract_skills, generate_ats_suggestions
+    from matcher import calculate_match_breakdown
+    from data_generator import generate_random_resume, generate_random_job_description, generate_training_dataset
+    from model_trainer import train_model
 
 
 class ResumeAnalyzerTests(unittest.TestCase):

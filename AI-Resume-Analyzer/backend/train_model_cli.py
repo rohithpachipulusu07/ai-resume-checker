@@ -10,7 +10,14 @@ Usage:
 import argparse
 import os
 import sys
-from model_trainer import train_model, MODEL_PATH, VECTORIZER_PATH
+
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+try:
+    from model_trainer import train_model, MODEL_PATH, VECTORIZER_PATH
+except ImportError:
+    from backend.model_trainer import train_model, MODEL_PATH, VECTORIZER_PATH
 
 def main():
     parser = argparse.ArgumentParser(
@@ -43,7 +50,7 @@ def main():
         model, vectorizer = train_model(num_samples=args.samples)
         
         print(f"\n{'='*60}")
-        print("✓ Training Complete!")
+        print("[OK] Training Complete!")
         print(f"{'='*60}")
         print(f"Model saved to: {MODEL_PATH}")
         print(f"Vectorizer saved to: {VECTORIZER_PATH}")
@@ -53,7 +60,7 @@ def main():
         
         return 0
     except Exception as e:
-        print(f"\n❌ Error during training: {e}", file=sys.stderr)
+        print(f"\n[ERROR] Error during training: {e}", file=sys.stderr)
         import traceback
         traceback.print_exc()
         return 1
