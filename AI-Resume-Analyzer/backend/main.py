@@ -1,17 +1,28 @@
+import os
+import sys
+import shutil
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-import os
-import sys
-import shutil
+backend_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(backend_dir)
+root_dir = os.path.dirname(parent_dir)
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+for d in [backend_dir, parent_dir, root_dir]:
+    if d and d not in sys.path:
+        sys.path.insert(0, d)
 
-from resume_parser import extract_text_from_pdf
-from skill_extractor import extract_skills, generate_ats_suggestions, generate_interview_questions
-from matcher import calculate_match_breakdown
-from model_trainer import train_model
+try:
+    from resume_parser import extract_text_from_pdf
+    from skill_extractor import extract_skills, generate_ats_suggestions, generate_interview_questions
+    from matcher import calculate_match_breakdown
+    from model_trainer import train_model
+except ImportError:
+    from backend.resume_parser import extract_text_from_pdf
+    from backend.skill_extractor import extract_skills, generate_ats_suggestions, generate_interview_questions
+    from backend.matcher import calculate_match_breakdown
+    from backend.model_trainer import train_model
 
 
 app = FastAPI(title="AI Resume Analyzer")
@@ -98,4 +109,4 @@ async def train_model_endpoint(num_samples: int = 500):
 
 # Serve Frontend Web UI at root URL
 if os.path.exists(FRONTEND_FOLDER):
-    app.mount("/", StaticFiles(directory=FRONTEND_FOLDER, html=True), name="frontend")
+    app.mount("/", StaticFiles(directory=FRONTEND_FOLDER, html=True), name="frontend")
