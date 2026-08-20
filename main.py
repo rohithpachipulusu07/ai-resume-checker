@@ -1,13 +1,20 @@
 import os
 import sys
+import importlib.util
 
-# Add backend directory to sys.path so modules can be imported directly
 current_dir = os.path.dirname(os.path.abspath(__file__))
 backend_dir = os.path.join(current_dir, "AI-Resume-Analyzer", "backend")
 
-if os.path.exists(backend_dir):
-    sys.path.append(backend_dir)
-else:
-    sys.path.append(os.path.join(current_dir, "backend"))
+if not os.path.exists(backend_dir):
+    backend_dir = os.path.join(current_dir, "backend")
 
-from main import app
+sys.path.insert(0, backend_dir)
+
+backend_main_path = os.path.join(backend_dir, "main.py")
+spec = importlib.util.spec_from_file_location("backend_main", backend_main_path)
+backend_main = importlib.util.module_from_spec(spec)
+sys.modules["backend_main"] = backend_main
+spec.loader.exec_module(backend_main)
+
+app = backend_main.app
+
